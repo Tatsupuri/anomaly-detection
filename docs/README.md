@@ -1,4 +1,4 @@
-# detec-anomaly
+# detect-anomaly
 
 タイムラプスMP4をUltralytics YOLOで解析し、対象カテゴリーの検出数について移動和を計算するコマンドラインツールです。
 
@@ -124,7 +124,7 @@ uv tool update-shell
 wheelのファイル名では、プロジェクト名のハイフンがアンダースコアへ変換されます。
 
 ```text
-detec-anomaly
+detect-anomaly
     ↓
 detec_anomaly-VERSION-py3-none-any.whl
 ```
@@ -132,7 +132,7 @@ detec_anomaly-VERSION-py3-none-any.whl
 プロジェクトディレクトリへ移動します。
 
 ```powershell
-cd C:\path\to\detec-anomaly
+cd C:\path\to\detect-anomaly
 ```
 
 最新のwheelを取得します。
@@ -160,7 +160,7 @@ uv tool install --force --index https://download.pytorch.org/whl/cu128 .\dist\de
 インストール後、コマンドを確認します。
 
 ```powershell
-detec-anomaly --help
+detect-anomaly --help
 ```
 
 ## 3. Install from the source directory
@@ -168,7 +168,7 @@ detec-anomaly --help
 `pyproject.toml`が存在するプロジェクトディレクトリから直接インストールすることもできます。
 
 ```powershell
-cd C:\path\to\detec-anomaly
+cd C:\path\to\detect-anomaly
 
 uv tool install --force `
   --index https://download.pytorch.org/whl/cu128 `
@@ -178,7 +178,7 @@ uv tool install --force `
 インストール後に確認します。
 
 ```powershell
-detec-anomaly --help
+detect-anomaly --help
 ```
 
 ## 4. CPU-only installation
@@ -198,7 +198,7 @@ uv tool install --force `
 CPUで実行する場合は、必ず`--device cpu`を指定します。
 
 ```powershell
-detec-anomaly `
+detect-anomaly `
   "D:\LPSE0001.MP4" `
   ".\out_cpu" `
   --device cpu `
@@ -230,7 +230,7 @@ uv tool install --force --no-cache `
 ## 6. Uninstall
 
 ```powershell
-uv tool uninstall detec-anomaly
+uv tool uninstall detect-anomaly
 ```
 
 インストール済みのツールを確認します。
@@ -262,7 +262,7 @@ yolo11m.pt
 配置例:
 
 ```text
-detec-anomaly/
+detect-anomaly/
 ├── models/
 │   └── yolo11m.pt
 ├── dist/
@@ -274,7 +274,7 @@ detec-anomaly/
 実行時に重みファイルのパスを指定します。
 
 ```powershell
-detec-anomaly `
+detect-anomaly `
   "D:\LPSE0001.MP4" `
   ".\out" `
   --model ".\models\yolo11m.pt" `
@@ -284,7 +284,7 @@ detec-anomaly `
 独自に学習した重みも同様に指定できます。
 
 ```powershell
-detec-anomaly `
+detect-anomaly `
   "D:\LPSE0001.MP4" `
   ".\out" `
   --model "D:\models\best.pt" `
@@ -300,13 +300,13 @@ detec-anomaly `
 ## Basic usage
 
 ```powershell
-detec-anomaly INPUT OUTPUT [OPTIONS]
+detect-anomaly INPUT OUTPUT [OPTIONS]
 ```
 
 例:
 
 ```powershell
-detec-anomaly `
+detect-anomaly `
   "D:\LPSE0001.MP4" `
   ".\out" `
   --threshold 15
@@ -315,7 +315,7 @@ detec-anomaly `
 ## Recommended GPU command
 
 ```powershell
-detec-anomaly `
+detect-anomaly `
   "D:\LPSE0001.MP4" `
   ".\out" `
   --model yolo11m.pt `
@@ -336,7 +336,7 @@ detec-anomaly `
 GPUメモリに余裕がある場合は、`--batch 2`を試せます。
 
 ```powershell
-detec-anomaly `
+detect-anomaly `
   "D:\LPSE0001.MP4" `
   ".\out_batch2" `
   --device 0 `
@@ -351,7 +351,7 @@ detec-anomaly `
 GPUメモリ不足が発生する場合は、画像サイズを小さくします。
 
 ```powershell
-detec-anomaly `
+detect-anomaly `
   "D:\LPSE0001.MP4" `
   ".\out_low_memory" `
   --device 0 `
@@ -363,7 +363,7 @@ detec-anomaly `
 ## CPU execution
 
 ```powershell
-detec-anomaly `
+detect-anomaly `
   "D:\LPSE0001.MP4" `
   ".\out_cpu" `
   --device cpu `
@@ -374,7 +374,7 @@ detec-anomaly `
 ## Show help
 
 ```powershell
-detec-anomaly --help
+detect-anomaly --help
 ```
 
 # Command-line options
@@ -444,13 +444,13 @@ uv tool dir
 Windows環境では、通常は次のような場所にツール環境が作成されます。
 
 ```text
-%APPDATA%\uv\tools\detec-anomaly\
+%APPDATA%\uv\tools\detect-anomaly\
 ```
 
 PyTorchの状態を確認します。
 
 ```powershell
-$toolPython = Join-Path (uv tool dir) "detec-anomaly\Scripts\python.exe"
+$toolPython = Join-Path (uv tool dir) "detect-anomaly\Scripts\python.exe"
 
 & $toolPython -c "import torch; print('torch:', torch.__version__); print('CUDA runtime:', torch.version.cuda); print('CUDA available:', torch.cuda.is_available()); print('GPU:', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'none')"
 ```
@@ -475,7 +475,7 @@ CUDA available: False
 CPU版になっていた場合は、CUDAインデックスを明示して再インストールします。
 
 ```powershell
-uv tool uninstall detec-anomaly
+uv tool uninstall detect-anomaly
 
 $wheel = Get-ChildItem .\dist\detec_anomaly-*.whl |
     Sort-Object LastWriteTime -Descending |
@@ -507,7 +507,7 @@ torch.cuda.device_count(): 0
 CUDA版PyTorchを指定して再インストールします。
 
 ```powershell
-uv tool uninstall detec-anomaly
+uv tool uninstall detect-anomaly
 
 $wheel = Get-ChildItem .\dist\detec_anomaly-*.whl |
     Sort-Object LastWriteTime -Descending |
@@ -535,7 +535,7 @@ uv tool install --force --no-cache `
 実行例:
 
 ```powershell
-detec-anomaly `
+detect-anomaly `
   "D:\LPSE0001.MP4" `
   ".\out" `
   --device 0 `
@@ -549,7 +549,7 @@ detec-anomaly `
 `--half`を付けている場合は外してください。
 
 ```powershell
-detec-anomaly `
+detect-anomaly `
   "D:\LPSE0001.MP4" `
   ".\out" `
   --device 0 `
@@ -568,7 +568,7 @@ detec-anomaly `
 重みファイルを別のPCで取得し、ローカルパスを指定してください。
 
 ```powershell
-detec-anomaly `
+detect-anomaly `
   "D:\LPSE0001.MP4" `
   ".\out" `
   --model ".\models\yolo11m.pt" `
@@ -580,7 +580,7 @@ detec-anomaly `
 ## Project structure
 
 ```text
-detec-anomaly/
+detect-anomaly/
 ├── README.md
 ├── main.py
 ├── pyproject.toml
