@@ -1,3 +1,4 @@
 *.ipynb
 *.pt
 out/
+_versoin.py

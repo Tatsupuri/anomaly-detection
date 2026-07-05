@@ -1,5 +1,5 @@
 [project]
-name = "mp4-anomaly"
+name = "detect-anomaly"
 dynamic = ["version"]
 description = "Detect moving-sum anomalies in time-lapse MP4 files and export annotated review clips."
 readme = "docs/README.md"
