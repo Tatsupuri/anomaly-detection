@@ -1,9 +1,8 @@
-```toml
 [project]
 name = "mp4-anomaly"
 dynamic = ["version"]
 description = "Detect moving-sum anomalies in time-lapse MP4 files and export annotated review clips."
-readme = "README.md"
+readme = "docs/README.md"
 requires-python = ">=3.11"
 dependencies = [
     "matplotlib>=3.9",
@@ -15,16 +14,13 @@ dependencies = [
 ]
 
 [project.scripts]
-mp4-anomaly = "mp4_anomaly.main:main"
+detect-anomaly = "mp4_anomaly.main:main"
 
-
-# ------------------------------------------------------------
-# PyTorch CUDA packages
-# ------------------------------------------------------------
 
 [tool.uv.sources]
 torch = { index = "pytorch-cu128" }
 torchvision = { index = "pytorch-cu128" }
+
 
 [[tool.uv.index]]
 name = "pytorch-cu128"
@@ -32,31 +28,15 @@ url = "https://download.pytorch.org/whl/cu128"
 explicit = true
 
 
-# ------------------------------------------------------------
-# Version from Git tags
-# ------------------------------------------------------------
-
 [tool.hatch.version]
 source = "vcs"
-
-# Accept tags such as:
-#   v0.2.0
-#   v1.0.0
-#   v1.0.0rc1
-tag-pattern = '^v(?P<version>.+)$'
-
-# Used when Git metadata and tags are unavailable.
+tag-pattern = "^v(?P<version>.+)$"
 fallback-version = "0.0.0"
 
 
-# Generate the runtime version module during build/install.
 [tool.hatch.build.hooks.vcs]
 version-file = "src/mp4_anomaly/_version.py"
 
-
-# ------------------------------------------------------------
-# Package contents
-# ------------------------------------------------------------
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/mp4_anomaly"]
@@ -65,15 +45,11 @@ packages = ["src/mp4_anomaly"]
 include = [
     "src/mp4_anomaly",
     "main.py",
-    "README.md",
+    "docs/README.md",
     "docs",
     "pyproject.toml",
 ]
 
-
-# ------------------------------------------------------------
-# Build backend
-# ------------------------------------------------------------
 
 [build-system]
 requires = [
@@ -81,4 +57,3 @@ requires = [
     "hatch-vcs",
 ]
 build-backend = "hatchling.build"
-```
