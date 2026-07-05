@@ -1,0 +1,84 @@
+```toml
+[project]
+name = "mp4-anomaly"
+dynamic = ["version"]
+description = "Detect moving-sum anomalies in time-lapse MP4 files and export annotated review clips."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "matplotlib>=3.9",
+    "opencv-python>=4.10",
+    "torch==2.11.0",
+    "torchvision==0.26.0",
+    "tqdm>=4.66",
+    "ultralytics>=8.3",
+]
+
+[project.scripts]
+mp4-anomaly = "mp4_anomaly.main:main"
+
+
+# ------------------------------------------------------------
+# PyTorch CUDA packages
+# ------------------------------------------------------------
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+torchvision = { index = "pytorch-cu128" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+
+# ------------------------------------------------------------
+# Version from Git tags
+# ------------------------------------------------------------
+
+[tool.hatch.version]
+source = "vcs"
+
+# Accept tags such as:
+#   v0.2.0
+#   v1.0.0
+#   v1.0.0rc1
+tag-pattern = '^v(?P<version>.+)$'
+
+# Used when Git metadata and tags are unavailable.
+fallback-version = "0.0.0"
+
+
+# Generate the runtime version module during build/install.
+[tool.hatch.build.hooks.vcs]
+version-file = "src/mp4_anomaly/_version.py"
+
+
+# ------------------------------------------------------------
+# Package contents
+# ------------------------------------------------------------
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mp4_anomaly"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/mp4_anomaly",
+    "main.py",
+    "README.md",
+    "docs",
+    "pyproject.toml",
+]
+
+
+# ------------------------------------------------------------
+# Build backend
+# ------------------------------------------------------------
+
+[build-system]
+requires = [
+    "hatchling",
+    "hatch-vcs",
+]
+build-backend = "hatchling.build"
+```
